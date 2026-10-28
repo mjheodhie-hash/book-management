@@ -1,0 +1,318 @@
+:root {
+    --bg-color: #1a1c23;
+    --card-bg: #1a1c23;
+    --text-primary: #e0e6ed;
+    --text-muted: #8a94a6;
+    --accent-pink: #fb0a74;
+    --accent-pink-hover: #d90563;
+    --danger-red: #ff4d4d;
+    
+    /* Neumorphic Shadows for Dark Theme */
+    --shadow-flat: 6px 6px 14px #121318, -6px -6px 14px #22252e;
+    --shadow-inset: inset 4px 4px 8px #111217, inset -4px -4px 8px #23262f;
+    --shadow-hover: 8px 8px 18px #101115, -8px -8px 18px #242731;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 1050px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Header */
+.app-header {
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    color: var(--accent-pink);
+}
+
+.logo i {
+    font-size: 2rem;
+}
+
+.logo h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: 1px;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: 0.2rem;
+}
+
+/* Neumorphic Utility Cards */
+.neumorphic-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    box-shadow: var(--shadow-flat);
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.controls-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Inset Neumorphic Inputs */
+.neumorphic-inset {
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: var(--shadow-inset);
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+}
+
+.search-box {
+    flex: 1;
+    min-width: 280px;
+}
+
+.search-box input,
+.input-wrapper input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    width: 100%;
+    font-size: 0.95rem;
+    margin-left: 0.75rem;
+}
+
+.search-icon, .input-wrapper i {
+    color: var(--text-muted);
+}
+
+/* Buttons */
+.btn {
+    padding: 0.75rem 1.4rem;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.neumorphic-btn {
+    background: var(--card-bg);
+    box-shadow: var(--shadow-flat);
+}
+
+.neumorphic-btn:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+}
+
+.neumorphic-btn:active {
+    box-shadow: var(--shadow-inset);
+    transform: translateY(0);
+}
+
+.btn-primary {
+    color: var(--accent-pink);
+}
+
+.btn-secondary {
+    color: var(--text-muted);
+}
+
+/* Table Styling */
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.neumorphic-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.neumorphic-table th {
+    padding: 1rem;
+    color: var(--accent-pink);
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-bottom: 2px solid #252833;
+}
+
+.neumorphic-table td {
+    padding: 1rem;
+    color: var(--text-primary);
+    font-size: 0.92rem;
+    border-bottom: 1px solid #222530;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.action-btns {
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+}
+
+.btn-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--card-bg);
+    box-shadow: var(--shadow-flat);
+    transition: all 0.2s;
+}
+
+.btn-icon.edit-btn { color: #4da6ff; }
+.btn-icon.delete-btn { color: var(--danger-red); }
+
+.btn-icon:hover {
+    box-shadow: var(--shadow-hover);
+    transform: scale(1.05);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-muted);
+}
+
+.empty-state i {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Modal Overlay & Styling */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(10, 11, 14, 0.75);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-card {
+    width: 100%;
+    max-width: 480px;
+    position: relative;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.btn-close {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+}
+
+.error-text {
+    color: var(--danger-red);
+    font-size: 0.78rem;
+    margin-top: 0.3rem;
+    display: block;
+    min-height: 1rem;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+}
+
+/* Notification Floating Toast */
+.toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 2000;
+}
+
+.toast {
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    background: var(--card-bg);
+    box-shadow: var(--shadow-hover);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-left: 4px solid var(--accent-pink);
+    animation: slideIn 0.3s ease;
+}
+
+.toast.error {
+    border-left-color: var(--danger-red);
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.hidden { display: none !important; }

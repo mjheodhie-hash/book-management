@@ -1,6 +1,32 @@
 document.addEventListener('DOMContentLoaded', () => {
     const API_URL = '/api/books';
 
+    // Theme Switch Logic
+    const themeToggleBtn = document.getElementById('theme-toggle-btn');
+    const themeIcon = document.getElementById('theme-icon');
+    const themeLabel = document.getElementById('theme-label');
+    const body = document.body;
+
+    const savedTheme = localStorage.getItem('theme') || 'dark-theme';
+    setTheme(savedTheme);
+
+    themeToggleBtn.addEventListener('click', () => {
+        const newTheme = body.classList.contains('dark-theme') ? 'light-theme' : 'dark-theme';
+        setTheme(newTheme);
+    });
+
+    function setTheme(theme) {
+        body.className = theme;
+        localStorage.setItem('theme', theme);
+        if (theme === 'dark-theme') {
+            themeIcon.className = 'fa-solid fa-moon';
+            themeLabel.textContent = 'Dark Mode';
+        } else {
+            themeIcon.className = 'fa-solid fa-sun';
+            themeLabel.textContent = 'Light Mode';
+        }
+    }
+
     // DOM Elements
     const booksTableBody = document.getElementById('books-table-body');
     const emptyState = document.getElementById('empty-state');
@@ -21,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const genreInput = document.getElementById('genre');
     const yearInput = document.getElementById('year_published');
 
-    // Load Initial Books
+    // Initial Fetch
     fetchBooks();
 
     // Event Listeners
@@ -30,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cancelModalBtn.addEventListener('click', closeModal);
     bookForm.addEventListener('submit', handleFormSubmit);
 
-    // Live Search Event Listener
+    // Search Handler (TC-15 to TC-18)
     let searchDebounce = null;
     searchInput.addEventListener('input', (e) => {
         clearTimeout(searchDebounce);
@@ -39,20 +65,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 300);
     });
 
-    // Fetch Books from API (TC-06, TC-15, TC-16, TC-17, TC-18)
+    // Fetch Books Function
     async function fetchBooks(query = '') {
         try {
             const endpoint = query ? `${API_URL}?search=${encodeURIComponent(query)}` : API_URL;
             const res = await fetch(endpoint);
             const data = await res.json();
-
             renderTable(data);
         } catch (err) {
-            showToast('Failed to fetch books from server', 'error');
+            showToast('Failed to fetch book records from server', 'error');
         }
     }
 
-    // Render Books Table Body
+    // Render Table Body
     function renderTable(books) {
         booksTableBody.innerHTML = '';
 
@@ -86,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Handle Create / Update Form Submission (TC-01, TC-09, TC-19, TC-20)
+    // Handle Form Create / Update (TC-01, TC-09, TC-19, TC-20)
     async function handleFormSubmit(e) {
         e.preventDefault();
         clearErrors();
@@ -117,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await res.json();
 
             if (res.status === 422) {
-                // Display Validation Errors (TC-02, TC-03, TC-04, TC-05, TC-10)
+                // Inline validation errors (TC-02 - TC-05, TC-10)
                 displayErrors(data.errors);
                 return;
             }
@@ -127,16 +152,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            showToast(data.message || (isEdit ? 'Book updated!' : 'Book created!'));
+            showToast(data.message || (isEdit ? 'Book updated successfully!' : 'Book created successfully!'));
             closeModal();
             fetchBooks(searchInput.value.trim());
 
         } catch (err) {
-            showToast('Unable to connect to server.', 'error');
+            showToast('Unable to reach server.', 'error');
         }
     }
 
-    // Edit Book Action (TC-07)
+    // Edit Action (TC-07)
     window.editBook = async function(id) {
         try {
             const res = await fetch(`${API_URL}/${id}`);
@@ -158,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Delete Book Action (TC-12, TC-21)
+    // Delete Action (TC-12, TC-21)
     window.deleteBook = async function(id) {
         if (!confirm('Are you sure you want to permanently remove this book?')) return;
 
@@ -181,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Modal Control Helper Functions
+    // Modal & Toast Utilities
     function openModal(mode = 'add') {
         clearErrors();
         if (mode === 'add') {
@@ -214,7 +239,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Floating Notification Toast Function
     function showToast(message, type = 'success') {
         const container = document.getElementById('toast-container');
         const toast = document.createElement('div');
@@ -225,9 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         container.appendChild(toast);
 
-        setTimeout(() => {
-            toast.remove();
-        }, 3500);
+        setTimeout(() => toast.remove(), 3500);
     }
 
     function escapeHtml(str) {

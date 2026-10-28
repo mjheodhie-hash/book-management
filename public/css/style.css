@@ -1,16 +1,34 @@
-:root {
+/* Theme Palette Definitions */
+body.dark-theme {
     --bg-color: #1a1c23;
     --card-bg: #1a1c23;
     --text-primary: #e0e6ed;
     --text-muted: #8a94a6;
     --accent-pink: #fb0a74;
     --accent-pink-hover: #d90563;
+    --border-color: #252833;
     --danger-red: #ff4d4d;
     
-    /* Neumorphic Shadows for Dark Theme */
+    /* Neumorphic Dark Shadows */
     --shadow-flat: 6px 6px 14px #121318, -6px -6px 14px #22252e;
     --shadow-inset: inset 4px 4px 8px #111217, inset -4px -4px 8px #23262f;
     --shadow-hover: 8px 8px 18px #101115, -8px -8px 18px #242731;
+}
+
+body.light-theme {
+    --bg-color: #e6e8ec;
+    --card-bg: #e6e8ec;
+    --text-primary: #2d3748;
+    --text-muted: #718096;
+    --accent-pink: #fb0a74;
+    --accent-pink-hover: #d90563;
+    --border-color: #cbd5e0;
+    --danger-red: #e53e3e;
+
+    /* Neumorphic Light Shadows */
+    --shadow-flat: 6px 6px 14px #c3c5c9, -6px -6px 14px #ffffff;
+    --shadow-inset: inset 4px 4px 8px #c3c5c9, inset -4px -4px 8px #ffffff;
+    --shadow-hover: 8px 8px 18px #b4b6ba, -8px -8px 18px #ffffff;
 }
 
 * {
@@ -18,6 +36,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
 body {
@@ -37,44 +56,54 @@ body {
     gap: 1.5rem;
 }
 
-/* Header */
+/* Header & Theme Toggle */
 .app-header {
-    text-align: center;
-    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.2rem;
 }
 
-.logo {
+.brand {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
+    gap: 1rem;
     color: var(--accent-pink);
 }
 
-.logo i {
-    font-size: 2rem;
+.brand i {
+    font-size: 2.2rem;
 }
 
-.logo h2 {
-    font-size: 2rem;
+.brand h2 {
+    font-size: 1.8rem;
     font-weight: 700;
     color: var(--text-primary);
-    letter-spacing: 1px;
+    line-height: 1.1;
 }
 
 .subtitle {
     color: var(--text-muted);
-    font-size: 0.9rem;
-    margin-top: 0.2rem;
+    font-size: 0.85rem;
 }
 
-/* Neumorphic Utility Cards */
+.theme-toggle-btn {
+    padding: 0.6rem 1.2rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+/* Neumorphic Cards & Components */
 .neumorphic-card {
     background: var(--card-bg);
     border-radius: 16px;
     box-shadow: var(--shadow-flat);
     padding: 1.5rem;
-    transition: all 0.3s ease;
 }
 
 .controls-card {
@@ -85,7 +114,6 @@ body {
     flex-wrap: wrap;
 }
 
-/* Inset Neumorphic Inputs */
 .neumorphic-inset {
     background: var(--card-bg);
     border-radius: 12px;
@@ -125,7 +153,6 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    transition: all 0.2s ease;
 }
 
 .neumorphic-btn {
@@ -167,14 +194,14 @@ body {
     color: var(--accent-pink);
     font-weight: 600;
     font-size: 0.9rem;
-    border-bottom: 2px solid #252833;
+    border-bottom: 2px solid var(--border-color);
 }
 
 .neumorphic-table td {
     padding: 1rem;
     color: var(--text-primary);
     font-size: 0.92rem;
-    border-bottom: 1px solid #222530;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .text-center {
@@ -198,10 +225,9 @@ body {
     justify-content: center;
     background: var(--card-bg);
     box-shadow: var(--shadow-flat);
-    transition: all 0.2s;
 }
 
-.btn-icon.edit-btn { color: #4da6ff; }
+.btn-icon.edit-btn { color: #3182ce; }
 .btn-icon.delete-btn { color: var(--danger-red); }
 
 .btn-icon:hover {
@@ -220,14 +246,14 @@ body {
     margin-bottom: 0.5rem;
 }
 
-/* Modal Overlay & Styling */
+/* Modal Overlay & Card */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(10, 11, 14, 0.75);
+    background: rgba(10, 11, 14, 0.7);
     backdrop-filter: blur(5px);
     display: flex;
     align-items: center;
@@ -238,7 +264,6 @@ body {
 .modal-card {
     width: 100%;
     max-width: 480px;
-    position: relative;
 }
 
 .modal-header {
@@ -282,7 +307,7 @@ body {
     margin-top: 1.5rem;
 }
 
-/* Notification Floating Toast */
+/* Floating Toast Notifications */
 .toast-container {
     position: fixed;
     bottom: 20px;

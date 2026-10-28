@@ -9,24 +9,32 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
-<body>
+<body class="dark-theme">
 
-    <!-- Floating Notification Container -->
+    <!-- Floating Toast Notification Container -->
     <div id="toast-container" class="toast-container"></div>
 
     <div class="app-container">
-        <!-- Sidebar / Brand -->
+        <!-- Top Navigation Header -->
         <header class="app-header">
-            <div class="logo">
+            <div class="brand">
                 <i class="fa-solid fa-book-bookmark"></i>
-                <h2>LibroSync</h2>
+                <div>
+                    <h2>LibroSync</h2>
+                    <p class="subtitle">Digital Book Collection System</p>
+                </div>
             </div>
-            <p class="subtitle">Digital Book Collection System</p>
+            
+            <!-- Dark / Light Theme Switch Button -->
+            <button class="theme-toggle-btn neumorphic-btn" id="theme-toggle-btn" title="Toggle Theme">
+                <i class="fa-solid fa-moon" id="theme-icon"></i>
+                <span id="theme-label">Dark Mode</span>
+            </button>
         </header>
 
         <!-- Main Workspace -->
         <main class="app-main">
-            <!-- Controls Bar: Search & Action -->
+            <!-- Controls Bar: Search & Action Buttons -->
             <section class="controls-card neumorphic-card">
                 <div class="search-box neumorphic-inset">
                     <i class="fa-solid fa-magnifying-glass search-icon"></i>
@@ -37,7 +45,7 @@
                 </button>
             </section>
 
-            <!-- Book List Display -->
+            <!-- Book List Table Container -->
             <section class="table-card neumorphic-card">
                 <div class="table-wrapper">
                     <table class="neumorphic-table">
@@ -52,7 +60,7 @@
                             </tr>
                         </thead>
                         <tbody id="books-table-body">
-                            <!-- Populated dynamically via JS -->
+                            <!-- Dynamically loaded via app.js -->
                         </tbody>
                     </table>
                 </div>
@@ -64,7 +72,7 @@
         </main>
     </div>
 
-    <!-- Neumorphic Modal Dialog for Create / Edit -->
+    <!-- Neumorphic Modal Dialog for Create & Edit -->
     <div class="modal-overlay hidden" id="book-modal">
         <div class="modal-card neumorphic-card">
             <div class="modal-header">
